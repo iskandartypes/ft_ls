@@ -6,7 +6,7 @@
 #    By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 06:59:43 by ikourkji          #+#    #+#              #
-#    Updated: 2019/03/26 07:56:34 by ikourkji         ###   ########.fr        #
+#    Updated: 2019/03/26 20:01:18 by ikourkji         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ SRC		= $(patsubst %,src/%,$(_SRC))
 _OBJ	= $(_SRC:.c=.o)
 OBJ		= $(patsubst %,obj/%,$(_OBJ))
 
-TEST	= -g
+TEST	= -g -fsanitize=address
 
 GREEN	= \033[0;32m
 NC		= \033[0m
