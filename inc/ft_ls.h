@@ -6,7 +6,7 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 07:22:45 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/03/27 22:26:33 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/03/28 13:20:23 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,17 @@
 # define LS_LU 0x1000
 # define LS_UU 0x2000
 # define LS_LG 0x4000
+
+/*
+** tot: size in b / 512 (rounded up)
+*/
+
+typedef struct	s_lsdir
+{
+	int			tot;
+	char		*path;
+	DIR			*dir;
+	t_list		*entries;
+}				t_lsdir;
 
 #endif
