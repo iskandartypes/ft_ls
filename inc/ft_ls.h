@@ -6,7 +6,7 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 07:22:45 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/03/26 19:55:11 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/03/27 22:26:33 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 
 /*
 ** flags: L/U = lower/upper, followed by letter
+** not in any particular order, but that's not relevant
 */
 # define LS_LL 0x0001
 # define LS_UR 0x0002

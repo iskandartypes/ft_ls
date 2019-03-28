@@ -6,7 +6,7 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 07:36:43 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/03/27 02:00:06 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/03/27 23:27:02 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,21 @@
 
 char	**ls_parse_flags(char **av, int *flags)
 {
-	ft_printf("%s %s\n", av[0], av[1]);
+	int i;
+
 	while ( *av && (*av)[0] == '-' && (*av)[1])
 	{
 		(*av)++;
 		while (**av)
 		{
-			*flags |= **av == 'l' ? LS_LL : 0;
-			*flags |= **av == 'R' ? LS_UR : 0;
-			*flags |= **av == 'a' ? LS_LA : 0;
-			*flags |= **av == 'r' ? LS_LR : 0;
-			*flags |= **av == 't' ? LS_LT : 0;
-			*flags |= **av == 'G' ? LS_UG : 0;
-			*flags |= **av == 'p' ? LS_LP : 0;
-			*flags |= **av == 'f' ? LS_LF : 0;
-			*flags |= **av == 'h' ? LS_LH : 0;
-			*flags |= **av == 'i' ? LS_LI : 0;
-			*flags |= **av == 'S' ? LS_US : 0;
-			*flags |= **av == 'T' ? LS_UT : 0;
-			*flags |= **av == 'u' ? LS_LU : 0;
-			*flags |= **av == 'U' ? LS_UU : 0;
-			*flags |= **av == 'g' ? LS_LG : 0;
+			i = ft_charat("lRartGpFhiSTuUg\0", **av);
+			if (i == -1 && (*flags = -1))
+				break ;
+			*flags |= (1 << i);
 			(*av)++;
 		}
+		if (i == -1)
+			break ;
 		av++;
 	}
 	return (av);
@@ -70,6 +62,9 @@ int		main(int ac, char **av)
 	else
 	{
 		av = ls_parse_flags(av + 1, &flags);
+		if (flags == -1)
+			return (ft_printf("ft_ls: illegal option -- %c\n"
+						"usage: ls [-GRSTUafghilptu] [file ...]\n", av[0][0]));
 		ft_printf("flags: %015b\n", flags);
 		dir = *av ? opendir(*av) : opendir(".");
 	}
