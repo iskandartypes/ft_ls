@@ -6,7 +6,7 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/26 16:35:46 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/03/28 05:57:10 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/03/28 06:36:01 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,12 +108,14 @@ void				ft_lstadd(t_list **also, t_list *new);
 void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 
-typedef struct		s_qnode {
+typedef struct		s_qnode
+{
 	void			*content;
 	struct s_qnode	*next;
 }					t_qnode;
 
-typedef struct		s_queue {
+typedef struct		s_queue
+{
 	t_qnode			*first;
 	t_qnode			*last;
 }					t_queue;
@@ -124,12 +126,14 @@ void				ft_enqueue(t_queue *queue, void *content);
 void				*ft_dequeue(t_queue *queue);
 void				*ft_qpeek(t_queue *queue);
 
-typedef struct		s_stnode {
+typedef struct		s_stnode
+{
 	void			*content;
 	struct s_stnode	*next;
 }					t_stnode;
 
-typedef struct		s_stack {
+typedef struct		s_stack
+{
 	struct s_stnode	*top;
 }					t_stack;
 
