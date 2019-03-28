@@ -6,7 +6,7 @@
 #    By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/30 20:28:37 by ikourkji          #+#    #+#              #
-#    Updated: 2019/03/25 06:15:50 by ikourkji         ###   ########.fr        #
+#    Updated: 2019/03/28 05:59:43 by ikourkji         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,8 @@ INC		= -I ./inc
 #		because of GitHub submodules, ft_printf and gnl aren't in src folder
 _BITS	= ft_swapend32.c
 BITS	= $(patsubst %,bits/%,$(_BITS))
+_DS		= ft_stack.c ft_queue.c
+DS		= $(patsubst %,ds/%,$(_DS))
 _IS		= ft_isalnum.c ft_isascii.c ft_isinf.c ft_isninf.c ft_iswhite.c \
 		  ft_isalpha.c ft_isdigit.c ft_isnan.c ft_isprint.c
 IS		= $(patsubst %,is/%,$(_IS))
@@ -47,8 +49,8 @@ _PFSRC	= ft_printf.c ft_printf_cont.c pf_core.c pf_utils.c pf_numbers.c \
 		  pf_strings.c pf_strutils.c pf_smallconvs.c pf_floats.c
 PFSRC	= $(patsubst %,$(PF)/src/%,$(_PFSRC))
 
-__SRC	= $(_BITS) $(_IS) $(_LST) $(_MEM) $(_PUT) $(_STR)
-_SRC	= $(BITS) $(IS) $(LST) $(MEM) $(PUT) $(STR)
+__SRC	= $(_BITS) $(_DS) $(_IS) $(_LST) $(_MEM) $(_PUT) $(_STR)
+_SRC	= $(BITS) $(DS) $(IS) $(LST) $(MEM) $(PUT) $(STR)
 SRC		= $(patsubst %,src/%,$(_SRC)) $(GNL)/src/get_next_line.c \
 		  $(PFSRC)
 
