@@ -6,7 +6,7 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 07:36:43 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/03/28 19:47:30 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/03/29 13:56:27 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	**ls_parse_flags(char **av, long *flags)
 		(*av)++;
 		while (**av)
 		{
-			i = ft_charat("AFGRSTUafgilnprstu\0", **av);
+			i = ft_charat("AFGRSTafgilnprstu\0", **av);
 			if (i == -1 && (*flags = -1))
 				break ;
 			*flags |= (1l << i);
@@ -72,7 +72,7 @@ int		main(int ac, char **av)
 		av = ls_parse_flags(av + 1, &flags);
 		if (flags == -1)
 			return (ft_printf("ft_ls: illegal option -- %c\nusage: ft_ls "
-						"[-AFGRSTUafgilnprstu] [file ...]\n", av[0][0]));
+						"[-AFGRSTafgilnprstu] [file ...]\n", av[0][0]));
 		ft_printf("flags: %015b\n", flags);
 		dir = *av ? opendir(*av) : opendir(".");
 	}
