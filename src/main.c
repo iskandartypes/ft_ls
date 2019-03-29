@@ -6,7 +6,7 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 07:36:43 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/03/28 13:16:46 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/03/28 19:47:30 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** stores opts in flags; if illegal opt, option is at av[0][0]
 */
 
-char	**ls_parse_flags(char **av, int *flags)
+char	**ls_parse_flags(char **av, long *flags)
 {
 	int i;
 
@@ -25,10 +25,10 @@ char	**ls_parse_flags(char **av, int *flags)
 		(*av)++;
 		while (**av)
 		{
-			i = ft_charat("lRartGpFhiSTuUg\0", **av);
+			i = ft_charat("AFGRSTUafgilnprstu\0", **av);
 			if (i == -1 && (*flags = -1))
 				break ;
-			*flags |= (1 << i);
+			*flags |= (1l << i);
 			(*av)++;
 		}
 		if (i == -1)
@@ -38,24 +38,7 @@ char	**ls_parse_flags(char **av, int *flags)
 	return (av);
 }
 
-/*
-** test executable first, so subsequent calls override if x but !reg file
-*/
-
-void	ls_set_color(struct stat *stats)
-{
-	(stats->st_mode & S_IXUSR) || (stats->st_mode & S_IXGRP) ||\
-		(stats->st_mode & S_IXOTH) ? ft_printf("%{red}") : 0;
-	S_ISFIFO(stats->st_mode) ? ft_printf("%{yellow}") : 0;
-	S_ISCHR(stats->st_mode) ? ft_printf("%[yellow]%{blue}") : 0;
-	S_ISDIR(stats->st_mode) ? ft_printf("%{blue}") : 0;
-	S_ISBLK(stats->st_mode) ? ft_printf("%[cyan]%{blue}") : 0;
-	S_ISLNK(stats->st_mode) ? ft_printf("%{magenta}") : 0;
-	S_ISSOCK(stats->st_mode) ? ft_printf("%{green}") : 0;
-
-}
-
-void	ls_print_dir(DIR *dir, int flags)
+void	ls_print_dir(DIR *dir, long flags)
 {
 	struct dirent	*entry;
 	struct stat		stats;
@@ -67,8 +50,8 @@ void	ls_print_dir(DIR *dir, int flags)
 			//^ won't work right for symlinks, only works for curdir bc
 			//dirent->d_name is fname not path (use sprintf to append dir?)
 			if (flags & LS_UG)
-				ls_set_color(&stats);
-			ft_printf("%-20s %d\n", entry->d_name, stats.st_size);
+				ls_set_color(stats.st_mode);
+			ft_printf("%-20s %d %d\n", entry->d_name, stats.st_uid, stats.st_size);
 			if (flags & LS_UG)
 				ft_printf("%{}");
 		}
@@ -79,7 +62,7 @@ int		main(int ac, char **av)
 {
 	//you will have to make this a struct so that you can handle -R
 	DIR				*dir;
-	int				flags;
+	long			flags;
 
 	flags = 0;
 	if (ac == 1)
@@ -89,7 +72,7 @@ int		main(int ac, char **av)
 		av = ls_parse_flags(av + 1, &flags);
 		if (flags == -1)
 			return (ft_printf("ft_ls: illegal option -- %c\nusage: ft_ls "
-						"[-GRSTUafghilptu] [file ...]\n", av[0][0]));
+						"[-AFGRSTUafgilnprstu] [file ...]\n", av[0][0]));
 		ft_printf("flags: %015b\n", flags);
 		dir = *av ? opendir(*av) : opendir(".");
 	}
