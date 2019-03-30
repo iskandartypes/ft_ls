@@ -6,7 +6,7 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 07:36:43 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/03/29 13:56:27 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/03/29 23:32:16 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,23 +60,30 @@ void	ls_print_dir(DIR *dir, long flags)
 
 int		main(int ac, char **av)
 {
-	//you will have to make this a struct so that you can handle -R
-	DIR				*dir;
+	t_lsdir			*dir;
 	long			flags;
 
 	flags = 0;
-	if (ac == 1)
-		dir = opendir(".");
-	else
-	{
+//	if (ac == 1)
+//		dir = opendir(".");
+//	else
+//	{
 		av = ls_parse_flags(av + 1, &flags);
 		if (flags == -1)
 			return (ft_printf("ft_ls: illegal option -- %c\nusage: ft_ls "
 						"[-AFGRSTafgilnprstu] [file ...]\n", av[0][0]));
 		ft_printf("flags: %015b\n", flags);
-		dir = *av ? opendir(*av) : opendir(".");
-	}
-	ls_print_dir(dir, flags);
+		dir = ls_mkdir(*av ? *av++ : ".", flags);
+		ls_print_dir(dir->path, flags);
+		ls_rmdir(dir);
+		while (*av)
+		{
+			dir = ls_mkdir(*av++);
+			ls_print(dir, flags);
+			ls_rmdir(dir);
+		}
+
+//	}
 	closedir(dir);
 	return (0);
 }

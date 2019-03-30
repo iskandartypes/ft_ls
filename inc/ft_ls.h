@@ -6,7 +6,7 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 07:22:45 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/03/29 14:47:47 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/03/29 23:32:13 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,10 @@ typedef struct	s_lsdir
 //need delete func? like to free all the shit inside
 //saving d_name to avoid having to save dirent struct
 //(other info in dirent duped in stats)
-typedef struct	s_lsl
+typedef struct	s_lsent
 {
 	char		*name;
+	char		*full_name;
 	struct stat	*stats; //v. important, basically inherits from
 	char		ftype;	//in handy printable fmt
 	char		*perms;
@@ -73,7 +74,7 @@ typedef struct	s_lsl
 	char		*group; //getgrgid(gid) (might not need var)
 	int			sixmo_flag;
 
-}				t_lsl;
+}				t_lsent;
 
 void			ls_set_color(mode_t mode);
 void			ls_print_long(struct dirent *entry, char *path, int f);
