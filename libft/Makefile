@@ -6,7 +6,7 @@
 #    By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/30 20:28:37 by ikourkji          #+#    #+#              #
-#    Updated: 2019/03/29 11:49:52 by ikourkji         ###   ########.fr        #
+#    Updated: 2019/04/01 15:31:15 by ikourkji         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,8 +25,8 @@ DS		= $(patsubst %,ds/%,$(_DS))
 _IS		= ft_isalnum.c ft_isascii.c ft_isinf.c ft_isninf.c ft_iswhite.c \
 		  ft_isalpha.c ft_isdigit.c ft_isnan.c ft_isprint.c
 IS		= $(patsubst %,is/%,$(_IS))
-_LST	= ft_lstadd.c ft_lstdelone.c ft_lstmap.c ft_lstdel.c ft_lstiter.c \
-		  ft_lstnew.c ft_lstmsort.c
+_LST	= ft_lstadd.c ft_lstaddend.c ft_lstdelone.c ft_lstmap.c ft_lstdel.c \
+		  ft_lstiter.c ft_lstnew.c ft_lstmsort.c
 LST		= $(patsubst %,lst/%,$(_LST))
 _MEM	= ft_bzero.c ft_memchr.c ft_memdel.c ft_memset.c ft_memalloc.c \
 		  ft_memcmp.c ft_memmove.c ft_rememalloc.c ft_memccpy.c ft_memcpy.c \
