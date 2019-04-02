@@ -6,7 +6,7 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 07:22:45 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/04/01 22:28:30 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/04/02 00:56:24 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@
 # define LS_LS 0x04000	//output blocksize (lists total like -l, doesn't need -l)
 # define LS_LT 0x08000	//REQ sort by mod time (most recent first) and then name
 # define LS_LU 0x10000	//time of last access instead of last mod for -t sort and -l
+# define LS_MU 0x20000	//multiple args (needs header)
 
 /*
 ** tot: size in b / 512 (rounded up) (given by st_mode no worries)
