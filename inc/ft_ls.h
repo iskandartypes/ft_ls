@@ -6,7 +6,7 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 07:22:45 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/03/29 23:32:13 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/04/01 14:18:29 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,10 @@ typedef struct	s_lsent
 
 void			ls_set_color(mode_t mode);
 void			ls_print_long(struct dirent *entry, char *path, int f);
+
+t_lsdir			*ls_mkdir(char *name, long flags);
+void			ls_print(t_lsdir *dir, long flags);
+void			ls_rmdir(t_lsdir *dir);
 
 int				ls_alphacomp(t_list *n1, t_list *n2);
 int				ls_revalpha(t_list *n1, t_list *n2);

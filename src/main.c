@@ -6,7 +6,7 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 07:36:43 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/03/29 23:32:16 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/04/01 16:54:47 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,16 +74,16 @@ int		main(int ac, char **av)
 						"[-AFGRSTafgilnprstu] [file ...]\n", av[0][0]));
 		ft_printf("flags: %015b\n", flags);
 		dir = ls_mkdir(*av ? *av++ : ".", flags);
-		ls_print_dir(dir->path, flags);
+		ls_print(dir, flags);
 		ls_rmdir(dir);
 		while (*av)
 		{
-			dir = ls_mkdir(*av++);
+			dir = ls_mkdir(*av++, flags);
 			ls_print(dir, flags);
 			ls_rmdir(dir);
 		}
 
 //	}
-	closedir(dir);
+//	closedir(dir);
 	return (0);
 }

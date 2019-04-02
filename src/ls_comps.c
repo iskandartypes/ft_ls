@@ -6,7 +6,7 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/29 13:40:11 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/03/29 14:26:36 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/04/01 14:13:29 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 int		ls_alphacomp(t_list *n1, t_list *n2)
 {
-	return (ft_strcmp(n1->content->stats->d_name, n2->content->stats->d_name));
+	return (ft_strcmp(((t_lsent*)(n1->content))->name, \
+				((t_lsent*)(n2->content))->name));
 }
 
 /*
@@ -30,8 +31,8 @@ int		ls_modtimecomp(t_list *n1, t_list *n2)
 {
 	long	ret;
 
-	ret = n1->content->stats->st_mtimespec->tv_nsec - \
-		  n2->content->stats->st_mtimespec->tv_nsec;
+	ret = ((t_lsent*)(n1->content))->stats->st_mtimespec.tv_nsec - \
+		  ((t_lsent*)(n2->content))->stats->st_mtimespec.tv_nsec;
 	if (ret == 0)
 		return (0);
 	return (ret < 0 ? -1 : 1);
@@ -41,8 +42,8 @@ int		ls_acctimecomp(t_list *n1, t_list *n2)
 {
 	long	ret;
 
-	ret = n1->content->stats->st_atimespec->tv_nsec - \
-		  n2->content->stats->st_atimespec->tv_nsec;
+	ret = ((t_lsent*)(n1->content))->stats->st_atimespec.tv_nsec - \
+		  ((t_lsent*)(n2->content))->stats->st_atimespec.tv_nsec;
 	if (ret == 0)
 		return (0);
 	return (ret < 0 ? -1 : 1);
@@ -52,7 +53,8 @@ int		ls_sizecomp(t_list *n1, t_list *n2)
 {
 	off_t	ret;
 
-	ret = n1->content->stats->st_size - n2->content->stats->st_size;
+	ret = ((t_lsent*)(n1->content))->stats->st_size - \
+		  ((t_lsent*)(n2->content))->stats->st_size;
 	if (ret == 0)
 		return (0);
 	return (ret < 0 ? -1 : 1);
