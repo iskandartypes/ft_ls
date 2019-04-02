@@ -6,7 +6,7 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 07:22:45 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/04/01 14:18:29 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/04/01 22:28:30 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ typedef struct	s_lsent
 	char		*full_name;
 	struct stat	*stats; //v. important, basically inherits from
 	char		ftype;	//in handy printable fmt
+	char		exec;	//is it executable?
 	char		*perms;
 	char		*owner; //getpwuid(uid) (might not need var)
 	char		*group; //getgrgid(gid) (might not need var)
@@ -76,8 +77,13 @@ typedef struct	s_lsent
 
 }				t_lsent;
 
+typedef int		(*ls_comp)(t_list*, t_list*);
+
 void			ls_set_color(mode_t mode);
 void			ls_print_long(struct dirent *entry, char *path, int f);
+
+void			ls_get_ftype(t_lsent *entry);
+void			ls_get_perms(t_lsent *perms);
 
 t_lsdir			*ls_mkdir(char *name, long flags);
 void			ls_print(t_lsdir *dir, long flags);
