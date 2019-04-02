@@ -6,7 +6,7 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 07:36:43 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/04/01 22:28:33 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/04/02 00:26:01 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ int		main(int ac, char **av)
 	long			flags;
 
 	flags = 0;
-//	if (ac == 1)
-//		dir = opendir(".");
+	if (ac > 2)
+		flags |= LS_MU;
 //	else
 //	{
 		av = ls_parse_flags(av + 1, &flags);

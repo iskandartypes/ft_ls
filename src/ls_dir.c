@@ -6,7 +6,7 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/29 16:47:22 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/04/01 22:32:21 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/04/02 00:11:02 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ static void	make_entries(t_lsdir *dir)
 	struct dirent	*entry;
 	t_lsent			*ls_entry;
 
-	ft_printf("enter make entries\n");
 	while ((entry = readdir(dir->dir)))
 	{
 		ls_entry = malloc(sizeof(*ls_entry));
@@ -60,14 +59,15 @@ static void	sort_ents(t_list *ents, long fl)
 t_lsdir		*ls_mkdir(char *name, long flags)
 {
 	t_lsdir	*dir;
+	int		namei;
 
 	dir = ft_memalloc(sizeof(*dir));
-	if (name[0] == '.')
-		name += (name[1] == '/' ? 2 : 1);
-	ft_asprintf(&(dir->path), name[0] ? "./%s" : ".", name);
+	if (name[0] == '.' && (!name[1] || (name[1] == '/' && !name[2])))
+		namei = 1;
+	ft_asprintf(&(dir->path), /*namei ? "." : */"./%s", name);
 	dir->dir = opendir(dir->path);
 	make_entries(dir);
-	//sort here? need flags for sort
+	sort_ents(dir->entries, flags);
 	return (dir);
 }
 
@@ -75,7 +75,6 @@ void		ls_print(t_lsdir *dir, long flags)
 {
 	t_list	*run;
 
-	ft_printf("enter ls_print\n");
 	run = dir->entries;
 	while (run)
 	{
