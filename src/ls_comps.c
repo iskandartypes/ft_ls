@@ -6,7 +6,7 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/29 13:40:11 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/04/01 22:30:29 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/04/02 21:20:41 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 
 int		ls_alphacomp(t_list *n1, t_list *n2)
 {
+	//the below is pretty unhelpful actually
+//	ft_printf("%s %s\n%d\n", ((t_lsent*)(n1->content))->name, \
+				((t_lsent*)(n2->content))->name, \
+				ft_strcmp(((t_lsent*)(n1->content))->name, \
+				((t_lsent*)(n2->content))->name));
 	return (ft_strcmp(((t_lsent*)(n1->content))->name, \
 				((t_lsent*)(n2->content))->name));
 }

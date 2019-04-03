@@ -6,7 +6,7 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 07:22:45 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/04/02 00:56:24 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/04/03 06:53:44 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@
 # include "libft.h"
 # include <dirent.h> //opendir, readdir, closedir
 # include <stdlib.h>
-# include <uuid/uuid.h> //getpwuid, getgrgid
+# include <sys/types.h>
+# include <pwd.h>
+# include <grp.h>
+# include <uuid/uuid.h> //getpwuid, getgrgid (also prev 4)
 # include <sys/xattr.h> //listxattr, getxattr
 # include <time.h> //time, ctime
 # include <sys/stat.h> //stat, lstat

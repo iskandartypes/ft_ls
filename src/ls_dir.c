@@ -6,7 +6,7 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/29 16:47:22 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/04/02 00:11:02 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/04/02 23:07:25 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,11 @@ static void	make_entries(t_lsdir *dir)
 {
 	struct dirent	*entry;
 	t_lsent			*ls_entry;
-
+	//you might have to nul terminate these fucking dirnames?
+	//bc they aren't, which doesn't come up when the lib is compiled...
+	//but does when it isn't
+	//so you will have to... memcpy the d_name with the namelen (in dirent)
+	//and then add a '\0'
 	while ((entry = readdir(dir->dir)))
 	{
 		ls_entry = malloc(sizeof(*ls_entry));
@@ -64,26 +68,11 @@ t_lsdir		*ls_mkdir(char *name, long flags)
 	dir = ft_memalloc(sizeof(*dir));
 	if (name[0] == '.' && (!name[1] || (name[1] == '/' && !name[2])))
 		namei = 1;
-	ft_asprintf(&(dir->path), /*namei ? "." : */"./%s", name);
+	ft_asprintf(&(dir->path), /*namei ? "." : */"./%s\0", name);
 	dir->dir = opendir(dir->path);
 	make_entries(dir);
 	sort_ents(dir->entries, flags);
 	return (dir);
-}
-
-void		ls_print(t_lsdir *dir, long flags)
-{
-	t_list	*run;
-
-	run = dir->entries;
-	while (run)
-	{
-		//can do all sorts of flag stuff here, including
-		//(a) pass to longprint
-		//(b) color print
-		ft_printf("%s\n", ((t_lsent*)(run->content))->full_name);
-		run = run->next;
-	}
 }
 
 static void	rmentries(t_list *entries)

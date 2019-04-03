@@ -6,7 +6,7 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 15:58:38 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/04/01 21:14:12 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/04/03 06:58:13 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	ls_get_perms(t_lsent *entry)
 	ox = mode & S_IXOTH ? 'x' : '-';
 	if (mode & S_ISVTX)
 		ox = ox == 'x' ? 't' : 'T';
-	ft_asprintf(&(entry->perms), "%d%d%d%d%d%d%d%d%d", mode & S_IRUSR ? 'r' : '-'\
+	ft_asprintf(&(entry->perms), "%c%c%c%c%c%c%c%c%c", mode & S_IRUSR ? 'r' : '-'\
 			, mode & S_IWUSR ? 'w' : '-', ux, mode & S_IRGRP ? 'r' : '-', \
 			mode & S_IWGRP ? 'w' : '-', gx, mode & S_IROTH ? 'r' : '-', \
 			mode & S_IWOTH ? 'w' : '-', ox);
