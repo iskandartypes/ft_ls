@@ -6,7 +6,7 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/29 10:49:56 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/03/29 11:51:33 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/04/04 16:33:50 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static void		split_list(t_list *lst, t_list **frontp, t_list **backp)
 	t_list	*slow;
 
 	slow = lst;
-	fast = slow->next;
+	fast = lst->next;
 	while (fast)
 	{
 		fast = fast->next;
