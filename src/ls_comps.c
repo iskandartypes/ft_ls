@@ -6,7 +6,7 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/29 13:40:11 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/04/02 21:20:41 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/04/04 16:42:12 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int		ls_modtimecomp(t_list *n1, t_list *n2)
 		  ((t_lsent*)(n2->content))->stats->st_mtimespec.tv_nsec;
 	if (ret == 0)
 		return (0);
-	return (ret < 0 ? -1 : 1);
+	return (ret > 0 ? -1 : 1);
 }
 
 int		ls_acctimecomp(t_list *n1, t_list *n2)
@@ -51,7 +51,7 @@ int		ls_acctimecomp(t_list *n1, t_list *n2)
 		  ((t_lsent*)(n2->content))->stats->st_atimespec.tv_nsec;
 	if (ret == 0)
 		return (0);
-	return (ret < 0 ? -1 : 1);
+	return (ret > 0 ? -1 : 1);
 }
 
 int		ls_sizecomp(t_list *n1, t_list *n2)
@@ -62,5 +62,5 @@ int		ls_sizecomp(t_list *n1, t_list *n2)
 		  ((t_lsent*)(n2->content))->stats->st_size;
 	if (ret == 0)
 		return (0);
-	return (ret < 0 ? -1 : 1);
+	return (ret > 0 ? -1 : 1);
 }

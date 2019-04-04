@@ -6,7 +6,7 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 17:39:43 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/04/03 06:59:03 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/04/04 15:51:36 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void		ls_print(t_lsdir *dir, long flags)
 			//can do all sorts of flag stuff here, including
 			//(a) pass to longprint
 			//(b) color print
-			ft_printf("%s\n", ((t_lsent*)(run->content))->full_name);
+			ft_printf("%s\n", ((t_lsent*)(run->content))->name);
 			run = run->next;
 		}
 	}

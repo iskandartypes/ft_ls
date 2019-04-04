@@ -6,7 +6,7 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/29 16:47:22 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/04/02 23:07:25 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/04/04 16:41:02 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,20 +40,20 @@ static void	make_entries(t_lsdir *dir)
 ** I would have had to pass them manually anyway, only without helpful names
 */
 
-static void	sort_ents(t_list *ents, long fl)
+static void	sort_ents(t_list **ents, long fl)
 {
 	if (fl & LS_LF)
 	{
 		fl |= LS_LA;
 		return ;
 	}
-	ft_lstmsort(&ents, fl & LS_LR ? &ls_revalpha : &ls_alphacomp);
+	ft_lstmsort(ents, fl & LS_LR ? &ls_revalpha : &ls_alphacomp);
 	if (fl & LS_US)
-		ft_lstmsort(&ents, fl & LS_LR ? &ls_revsize : &ls_sizecomp);
+		ft_lstmsort(ents, fl & LS_LR ? &ls_revsize : &ls_sizecomp);
 	else if (fl & LS_LT)
-		ft_lstmsort(&ents, fl & LS_LR ? &ls_revmodtime : &ls_modtimecomp);
+		ft_lstmsort(ents, fl & LS_LR ? &ls_revmodtime : &ls_modtimecomp);
 	else if (fl & LS_LU)
-		ft_lstmsort(&ents, fl & LS_LR ? &ls_revacctime : &ls_acctimecomp);
+		ft_lstmsort(ents, fl & LS_LR ? &ls_revacctime : &ls_acctimecomp);
 }
 
 //it feels like you are going to have problems with recursive stuff?
@@ -71,7 +71,7 @@ t_lsdir		*ls_mkdir(char *name, long flags)
 	ft_asprintf(&(dir->path), /*namei ? "." : */"./%s\0", name);
 	dir->dir = opendir(dir->path);
 	make_entries(dir);
-	sort_ents(dir->entries, flags);
+	sort_ents(&(dir->entries), flags);
 	return (dir);
 }
 

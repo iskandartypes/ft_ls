@@ -6,7 +6,7 @@
 #    By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 06:59:43 by ikourkji          #+#    #+#              #
-#    Updated: 2019/04/03 06:59:21 by ikourkji         ###   ########.fr        #
+#    Updated: 2019/04/04 16:48:56 by ikourkji         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,6 +59,9 @@ re: fclean all
 
 test:
 	gcc $(SRC) $(INC) $(LIB) $(TEST) -o test_ls
+
+testsrc:
+	gcc $(SRC) $(INC) $(FTSRC) $(TEST) -o test_ls
 
 .PHONY: all $(NAME) clean fclean re test
 	
