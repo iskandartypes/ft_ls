@@ -6,7 +6,7 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/20 01:52:18 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/03/25 05:24:32 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/04/08 23:14:58 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,22 +18,23 @@
 # include <stdarg.h>
 # include "libft.h"
 
-# define F_CONV		0x1
-# define F_ZPAD		0x2
-# define F_RPAD		0x4
-# define F_BLANK	0x8
-# define F_SIGN		0x10
-# define F_PTR		0x20
-# define F_PREC		0x40
-# define F_BASE		0x80
-# define F_H		0x100
-# define F_L		0x200
-# define F_MAX		0x400
-# define F_SIZE		0x800
-# define F_LL		0x1000
-# define F_HH		0x2000
-# define F_ALL		0x3f00
-# define F_UP		0x4000
+# define F_CONV		0x0001
+# define F_ZPAD		0x0002
+# define F_RPAD		0x0004
+# define F_BLANK	0x0008
+# define F_SIGN		0x0010
+# define F_STAR		0x0020
+# define F_PTR		0x0040
+# define F_PREC		0x0080
+# define F_BASE		0x0100
+# define F_H		0x0200
+# define F_L		0x0400
+# define F_MAX		0x0800
+# define F_SIZE		0x1000
+# define F_LL		0x2000
+# define F_HH		0x4000
+# define F_ALL		0x7e00
+# define F_UP		0x8000
 
 # define NCONV		12
 # define ICONV		2

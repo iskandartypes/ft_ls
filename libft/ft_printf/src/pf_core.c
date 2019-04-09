@@ -6,7 +6,7 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/26 19:47:29 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/04/03 04:27:41 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/04/08 23:13:28 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	parse_flags_mods(t_vars *v)
 	int	f;
 
 	f = -1;
-	while (*v->fmt && (f = ft_charat("#0- +\0", *v->fmt)) > -1 && v->fmt++)
+	while (*v->fmt && (f = ft_charat("#0- +*", *v->fmt)) > -1 && v->fmt++)
 		v->flags |= (1 << f);
 	(v->flags & F_RPAD) ? v->flags &= ~F_ZPAD : 0;
 	(v->flags & F_SIGN) ? v->flags &= ~F_BLANK : 0;
@@ -38,9 +38,9 @@ static void	parse_flags_mods(t_vars *v)
 		v->flags |= F_PREC;
 	}
 	(v->flags & F_PREC) ? v->flags &= ~F_ZPAD : 0;
-	if (*v->fmt && (f = ft_charat("hljzL\0", *v->fmt)) > -1)
+	if (*v->fmt && (f = ft_charat("hljzL", *v->fmt)) > -1)
 	{
-		v->flags |= (1 << (f + 8));
+		v->flags |= (1 << (f + 9));
 		if (f == 0)
 			v->flags |= (*(v->fmt + 1) == 'h' && v->fmt++) ? F_HH : 0;
 		else if (f == 1)
@@ -67,7 +67,7 @@ static void	parse_base_long(t_vars *v)
 		if (v->base > 1 && v->base < 17)
 			i = 0;
 	}
-	if (i && (i = ft_charat("bBbboOxX\0", *v->fmt)) > -1)
+	if (i && (i = ft_charat("bBbboOxX", *v->fmt)) > -1)
 		v->base = 2 << (i >> 1);
 	if (i == -1)
 		v->base = 10;
@@ -76,12 +76,6 @@ static void	parse_base_long(t_vars *v)
 	if (ft_charat("FBX\0", *v->fmt) > -1)
 		v->flags |= F_UP;
 }
-
-/*
-** second parse_flags_mods is to get all specifiers out of way
-** idea is, even with incorrect input order, to at least get the conv
-** (user error minimizing)
-*/
 
 static void	parse(t_vars *v)
 {
@@ -99,10 +93,15 @@ static void	parse(t_vars *v)
 	parse_base_long(v);
 	if (!(*v->fmt))
 		return ;
-	parse_flags_mods(v);
+	v->min = (v->flags & F_STAR) ? va_arg(v->args, int) : v->min;
+	if (v->min < 0)
+	{
+		v->flags |= F_RPAD;
+		v->min *= -1;
+	}
 	if (!(*v->fmt))
 		return ;
-	if ((i = ft_charat("dDiibBoOuUxXfFcCsS%%pp{[\0",\
+	if ((i = ft_charat("dDiibBoOuUxXfFcCsS%%pp{[",\
 					*v->fmt)) > -1 && v->fmt++)
 		v->ftab[i >> 1](v);
 }
