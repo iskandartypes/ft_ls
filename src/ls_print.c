@@ -6,7 +6,7 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 17:39:43 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/04/09 01:21:23 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/04/09 05:52:22 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 /*
 ** that number is 6 mo in seconds
+** although the thing below doesn't work so maybe I need to do it differently?
 */
 
 static void	print_time(time_t sec, long flags)
@@ -32,7 +33,7 @@ static void	print_time(time_t sec, long flags)
 	else
 	{
 		cur = time(0);
-		if (sec - cur < 15780000)
+		if (cur - sec < 15552000)
 			while (i < 16)
 				ft_putchar(timestr[i++]);
 		else
