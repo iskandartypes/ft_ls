@@ -6,7 +6,7 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 17:39:43 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/04/09 05:52:22 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/04/09 06:56:55 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 /*
 ** that number is 6 mo in seconds
-** although the thing below doesn't work so maybe I need to do it differently?
 */
 
 static void	print_time(time_t sec, long flags)
@@ -45,6 +44,25 @@ static void	print_time(time_t sec, long flags)
 	}
 }
 
+static void print_name(t_lsent *ent, long flags)
+{
+	ft_putchar(' ');
+	if (flags & LS_UG)
+		ls_set_color(ent);
+	ft_printf("%s%{}", ent->name);
+	if (flags & LS_LP && ent->ftype == 'd' && !(flags & LS_UF))
+		ft_putchar('/');
+	if (flags & LS_UF)
+	{
+		ent->ftype == '-' && ft_charat(ent->perms, 'x') > -1 ? \
+					ft_putchar('*') : 0;
+		ent->ftype == 'd' ? ft_putchar('/') : 0;
+		ent->ftype == 's' ? ft_putchar('=') : 0;
+		ent->ftype == 'p' ? ft_putchar('|') : 0;
+	}
+	ft_putchar('\n');
+}
+
 //need to store max hardlinks to get spacing right
 //(link padding is one space before len maxlinks)
 //actually padding is one space before maxlen of every param
@@ -64,7 +82,6 @@ static void	lprint(t_lsdir *dir, long flags)
 	run = dir->entries;
 	while (run)
 	{
-		//TODO: time! struct? so many structs
 		ent = run->content;
 		if (ent->name[0] == '.' && !(flags & LS_LA) && (run = run->next))
 			continue ;
@@ -75,7 +92,8 @@ static void	lprint(t_lsdir *dir, long flags)
 				uid->pw_name, gid->gr_name, ent->stats->st_size);
 		print_time(ent->stats->st_mtimespec.tv_sec, flags);
 		//instead pass to "print name" which will do colours/file symbols?
-		ft_printf(" %s\n", ent->name);
+		//ft_printf(" %s\n", ent->name);
+		print_name(ent, flags);
 		run = run->next;
 	}
 }

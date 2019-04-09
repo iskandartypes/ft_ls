@@ -6,7 +6,7 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 07:22:45 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/04/09 00:29:11 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/04/09 06:47:07 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ typedef struct	s_lsent
 
 typedef int		(*ls_comp)(t_list*, t_list*);
 
-void			ls_set_color(mode_t mode);
+void			ls_set_color(t_lsent *ent);
 void			ls_print_long(struct dirent *entry, char *path, int f);
 
 void			ls_get_ftype(t_lsent *entry);

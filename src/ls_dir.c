@@ -6,13 +6,13 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/29 16:47:22 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/04/09 00:32:49 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/04/09 07:04:07 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static void	make_entries(t_lsdir *dir)
+static void	make_entries(t_lsdir *dir, long flags)
 {
 	struct dirent	*entry;
 	t_lsent			*ls_entry;
@@ -30,7 +30,8 @@ static void	make_entries(t_lsdir *dir)
 		stat(ls_entry->full_name, ls_entry->stats);
 		ls_get_ftype(ls_entry);
 		ls_get_perms(ls_entry);
-		dir->tot += ls_entry->stats->st_blocks;
+		dir->tot += entry->d_name[0] != '.' || flags & LS_LA ? \
+					ls_entry->stats->st_blocks : 0;
 		ft_lstaddend(&(dir->entries), ft_lstnew(ls_entry, sizeof(*ls_entry)));
 	}
 }
@@ -67,7 +68,7 @@ t_lsdir		*ls_mkdir(char *name, long flags, char *parent)
 	parent ? ft_asprintf(&(dir->path), "%s/%s", parent, name) : \
 		ft_asprintf(&(dir->path), "%s", name);
 	dir->dir = opendir(dir->path);
-	make_entries(dir);
+	make_entries(dir, flags);
 	sort_ents(&(dir->entries), flags);
 	return (dir);
 }
