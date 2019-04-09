@@ -6,35 +6,36 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 15:58:38 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/04/09 06:51:44 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/04/09 07:19:17 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
 /*
-** test executable first, so subsequent calls override if x but !reg file
+** executable, pipe, directory, symbolic link, socket, executable with setuid,
+** executable with setgid, other permissable executable w/out sticky and with
 */
 
 void	ls_set_color(t_lsent *ent)
 {
-	ft_charat(ent->perms, 'x') > -1 ? ft_printf("%{red}") : 0;
-	ent->ftype == 'p' ? ft_printf("%{yellow}") : 0;
-	ent->ftype == 'd' ? ft_printf("%{blue}") : 0;
-	ent->ftype == 'l' ? ft_printf("%{magenta}") : 0;
-	ent->ftype == 's' ? ft_printf("%{green}") : 0;
-	//ex w/uid: red back black text
-	ent->ftype == '-' && ent->perms[2] == 's' ? \
-				ft_printf("%{black}%[red]") : 0;
-	//ex w/gid: cyan back black text
-	ent->ftype == '-' && ent->perms[5] == 's' ? \
-				ft_printf("%{black}%[cyan]") : 0;
-	//other write dir: yellow back black text
-//	ent->ftype == 'd' && (ent->perms[9] != 't' && ent->perms[9] != 'T') ? \
-				ft_printf("%{black}%[yellow]") : 0;
-	//other write dir sticky bit: green back black text
-//	ent->ftype == 'd' && (ent->perms[9] != 't' || ent->perms[9] != 'T') ? \
-				ft_printf("%{black}%[green]") : 0;
+	if (ent->ftype == 'd')
+		ft_printf("%{blue}");
+	else if (ft_charat(ent->perms, 'x') > -1)
+	   	ft_printf("%{red}");
+	else if (ent->ftype == 'p')
+	   	ft_printf("%{yellow}");
+	else if (ent->ftype == 'l')
+		ft_printf("%{magenta}");
+	else if (ent->ftype == 's')
+		ft_printf("%{green}");
+	else if (ent->ftype == '-' && ent->perms[2] == 's')
+		ft_printf("%{black}%[red]");
+	else if (ent->ftype == '-' && ent->perms[5] == 's')
+		ft_printf("%{black}%[cyan]");
+	if (ent->ftype == 'd' && ft_charat(ent->perms + 3, 'w') > -1)
+		(ent->perms[8] == 't' || ent->perms[8] == 'T') ? \
+				ft_printf("%{black}%[green]") : ft_printf("%{black}%[yellow]");
 }
 
 /*
