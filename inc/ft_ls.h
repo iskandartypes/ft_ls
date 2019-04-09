@@ -6,7 +6,7 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 07:22:45 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/04/03 06:53:44 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/04/09 00:29:11 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void			ls_print_long(struct dirent *entry, char *path, int f);
 void			ls_get_ftype(t_lsent *entry);
 void			ls_get_perms(t_lsent *perms);
 
-t_lsdir			*ls_mkdir(char *name, long flags);
+t_lsdir			*ls_mkdir(char *name, long flags, char *parent);
 void			ls_print(t_lsdir *dir, long flags);
 void			ls_rmdir(t_lsdir *dir);
 

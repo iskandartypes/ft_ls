@@ -6,7 +6,7 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/29 16:47:22 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/04/04 16:41:02 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/04/09 00:32:49 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,7 @@ static void	sort_ents(t_list **ents, long fl)
 		ft_lstmsort(ents, fl & LS_LR ? &ls_revacctime : &ls_acctimecomp);
 }
 
-//it feels like you are going to have problems with recursive stuff?
-//unless you pass in dir->path as name?
-//maybe you will need prefix string? dir->path as prefix string
-//(base case prefix string is "")
-t_lsdir		*ls_mkdir(char *name, long flags)
+t_lsdir		*ls_mkdir(char *name, long flags, char *parent)
 {
 	t_lsdir	*dir;
 	int		namei;
@@ -68,7 +64,8 @@ t_lsdir		*ls_mkdir(char *name, long flags)
 	dir = ft_memalloc(sizeof(*dir));
 	if (name[0] == '.' && (!name[1] || (name[1] == '/' && !name[2])))
 		namei = 1;
-	ft_asprintf(&(dir->path), /*namei ? "." : */"./%s\0", name);
+	parent ? ft_asprintf(&(dir->path), "%s/%s", parent, name) : \
+		ft_asprintf(&(dir->path), "%s", name);
 	dir->dir = opendir(dir->path);
 	make_entries(dir);
 	sort_ents(&(dir->entries), flags);

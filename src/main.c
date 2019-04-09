@@ -6,7 +6,7 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 07:36:43 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/04/02 00:26:01 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/04/09 00:29:47 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,12 @@ int		main(int ac, char **av)
 			return (ft_printf("ft_ls: illegal option -- %c\nusage: ft_ls "
 						"[-AFGRSTafgilnprstu] [file ...]\n", av[0][0]));
 		ft_printf("flags: %015b\n", flags);
-		dir = ls_mkdir(*av ? *av++ : ".", flags);
+		dir = ls_mkdir(*av ? *av++ : ".", flags, 0);
 		ls_print(dir, flags);
 		ls_rmdir(dir);
 		while (*av)
 		{
-			dir = ls_mkdir(*av++, flags);
+			dir = ls_mkdir(*av++, flags, 0);
 			ls_print(dir, flags);
 			ls_rmdir(dir);
 		}
