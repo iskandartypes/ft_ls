@@ -6,7 +6,7 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 17:39:43 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/04/18 04:30:10 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/04/18 06:26:48 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,15 +63,14 @@ static void print_name(t_lsent *ent, long flags)
 	ft_putchar('\n');
 }
 
-//need to store max hardlinks to get spacing right
-//(link padding is one space before len maxlinks)
-//actually padding is one space before maxlen of every param
-//... you will either need to do something weird or implement wild (*) in pf
-//^maybe implement * (takes arg for fw/prec) w/out $ (which is not arg?)
-//(to get variable-width padding to format everything properly)
-//(AND store maxlen for every param in dir) (maybe a maxlen struct??)
-//"ent" for convenience
-//print_name does colours/file symbols
+/*
+** padding is one space before and after maxlen of every param
+** requires storing of maximum length; can cheat though
+** ("good enough" spacing)
+** "ent" var is for convenience (not derefing run->content 9000 times)
+** print_name does colours/file symbols if flagged
+*/
+
 static void	lprint(t_lsdir *dir, long flags)
 {
 	t_list			*run;
@@ -84,7 +83,11 @@ static void	lprint(t_lsdir *dir, long flags)
 	while (run)
 	{
 		ent = run->content;
-		if (ent->name[0] == '.' && !(flags & LS_LA) && (run = run->next))
+		if ((flags & LS_UA) && (ft_strcmp(ent->name, ".") == 0 || \
+					ft_strcmp(ent->name, "..") == 0) && (run = run->next))
+			continue ;
+		if (ent->name[0] == '.' && !(flags & (LS_LA | LS_UA)) \
+				&& (run = run->next))
 			continue ;
 		uid = getpwuid(ent->stats->st_uid);
 		gid = getgrgid(ent->stats->st_gid);
@@ -112,7 +115,11 @@ void		ls_print(t_lsdir *dir, long flags)
 		while (run)
 		{
 			ent = run->content;
-			if (ent->name[0] == '.' && !(flags & LS_LA) && (run = run->next))
+			if ((flags & LS_UA) && (ft_strcmp(ent->name, ".") == 0 || \
+						ft_strcmp(ent->name, "..") == 0) && (run = run->next))
+				continue ;
+			if (ent->name[0] == '.' && !(flags & (LS_LA | LS_UA)) \
+					&& (run = run->next))
 				continue ;
 			print_name(ent, flags);
 			run = run->next;
