@@ -6,7 +6,7 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 07:36:43 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/04/09 06:48:26 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/04/18 04:29:25 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ char	**ls_parse_flags(char **av, long *flags)
 			break ;
 		av++;
 	}
+	*flags |= (*flags & LS_LF) ? LS_LA : 0;
+	*flags |= (*flags & LS_LN) ? LS_LL : 0;
 	return (av);
 }
 
@@ -44,6 +46,7 @@ int		main(int ac, char **av)
 	long			flags;
 
 	flags = 0;
+	//հահահա this is wrong
 	if (ac > 2)
 		flags |= LS_MU;
 //	else

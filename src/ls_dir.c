@@ -6,7 +6,7 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/29 16:47:22 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/04/09 07:04:07 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/04/18 04:29:58 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,7 @@ static void	make_entries(t_lsdir *dir, long flags)
 {
 	struct dirent	*entry;
 	t_lsent			*ls_entry;
-	//you might have to nul terminate these fucking dirnames?
-	//bc they aren't, which doesn't come up when the lib is compiled...
-	//but does when it isn't
-	//so you will have to... memcpy the d_name with the namelen (in dirent)
-	//and then add a '\0'
+
 	while ((entry = readdir(dir->dir)))
 	{
 		ls_entry = malloc(sizeof(*ls_entry));
@@ -43,11 +39,6 @@ static void	make_entries(t_lsdir *dir, long flags)
 
 static void	sort_ents(t_list **ents, long fl)
 {
-	if (fl & LS_LF)
-	{
-		fl |= LS_LA;
-		return ;
-	}
 	ft_lstmsort(ents, fl & LS_LR ? &ls_revalpha : &ls_alphacomp);
 	if (fl & LS_US)
 		ft_lstmsort(ents, fl & LS_LR ? &ls_revsize : &ls_sizecomp);
@@ -60,14 +51,12 @@ static void	sort_ents(t_list **ents, long fl)
 t_lsdir		*ls_mkdir(char *name, long flags, char *parent)
 {
 	t_lsdir	*dir;
-	int		namei;
 
 	dir = ft_memalloc(sizeof(*dir));
-	if (name[0] == '.' && (!name[1] || (name[1] == '/' && !name[2])))
-		namei = 1;
 	parent ? ft_asprintf(&(dir->path), "%s/%s", parent, name) : \
 		ft_asprintf(&(dir->path), "%s", name);
 	dir->dir = opendir(dir->path);
+	dir->entries = NULL;
 	make_entries(dir, flags);
 	sort_ents(&(dir->entries), flags);
 	return (dir);
