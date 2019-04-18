@@ -6,7 +6,7 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 17:39:43 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/04/18 06:47:16 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/04/18 07:18:02 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@ static void	print_time(time_t sec, long flags)
 
 static void print_name(t_lsent *ent, long flags)
 {
-	ft_putchar(' ');
+	if (flags & (LS_LL | LS_LS | LS_LI))
+		ft_putchar(' ');
 	if (flags & LS_UG)
 		ls_set_color(ent);
 	ft_printf("%s%{}", ent->name);
