@@ -6,11 +6,30 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 17:39:43 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/04/18 06:26:48 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/04/18 06:47:16 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
+
+/*
+** all of these things happen whether or not -l is given
+** returns 1 if file is to be hidden from ls, 0 if otherwise
+** prints inode and block sizes if flags given and file not hidden
+*/
+
+static int	inode_block_skip(t_lsent *ent, long flags)
+{
+
+	if ((flags & LS_UA) && (ft_strcmp(ent->name, ".") == 0 || \
+				ft_strcmp(ent->name, "..") == 0))
+		return (1);
+	if (ent->name[0] == '.' && !(flags & (LS_LA | LS_UA)))
+		return (1);
+	flags & LS_LI ? ft_printf("%9d ", ent->stats->st_ino) : 0;
+	flags & LS_LS ? ft_printf("%4d ", ent->stats->st_blocks) : 0;
+	return (0);
+}
 
 /*
 ** that number is 6 mo in seconds
@@ -78,16 +97,11 @@ static void	lprint(t_lsdir *dir, long flags)
 	struct passwd	*uid;
 	struct group	*gid;
 
-	ft_printf("total %d\n", dir->tot);
 	run = dir->entries;
 	while (run)
 	{
 		ent = run->content;
-		if ((flags & LS_UA) && (ft_strcmp(ent->name, ".") == 0 || \
-					ft_strcmp(ent->name, "..") == 0) && (run = run->next))
-			continue ;
-		if (ent->name[0] == '.' && !(flags & (LS_LA | LS_UA)) \
-				&& (run = run->next))
+		if (inode_block_skip(ent, flags) && (run = run->next))
 			continue ;
 		uid = getpwuid(ent->stats->st_uid);
 		gid = getgrgid(ent->stats->st_gid);
@@ -107,6 +121,8 @@ void		ls_print(t_lsdir *dir, long flags)
 
 	if (flags & (LS_UR | LS_MU))
 		ft_printf("%s:\n", dir->path);
+	if (flags & (LS_LL | LS_LS))
+		ft_printf("total %d\n", dir->tot);
 	if (flags & LS_LL)
 		lprint(dir, flags);
 	else
@@ -115,11 +131,7 @@ void		ls_print(t_lsdir *dir, long flags)
 		while (run)
 		{
 			ent = run->content;
-			if ((flags & LS_UA) && (ft_strcmp(ent->name, ".") == 0 || \
-						ft_strcmp(ent->name, "..") == 0) && (run = run->next))
-				continue ;
-			if (ent->name[0] == '.' && !(flags & (LS_LA | LS_UA)) \
-					&& (run = run->next))
+			if (inode_block_skip(ent, flags) && (run = run->next))
 				continue ;
 			print_name(ent, flags);
 			run = run->next;
