@@ -6,7 +6,7 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 15:58:38 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/04/09 07:19:17 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/04/18 02:34:25 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@ void	ls_set_color(t_lsent *ent)
 		ft_printf("%{blue}");
 	else if (ft_charat(ent->perms, 'x') > -1)
 	   	ft_printf("%{red}");
-	else if (ent->ftype == 'p')
+	if (ent->ftype == 'p')
 	   	ft_printf("%{yellow}");
 	else if (ent->ftype == 'l')
 		ft_printf("%{magenta}");
 	else if (ent->ftype == 's')
 		ft_printf("%{green}");
-	else if (ent->ftype == '-' && ent->perms[2] == 's')
+	if (ent->ftype == '-' && ent->perms[2] == 's')
 		ft_printf("%{black}%[red]");
 	else if (ent->ftype == '-' && ent->perms[5] == 's')
 		ft_printf("%{black}%[cyan]");

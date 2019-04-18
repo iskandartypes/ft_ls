@@ -6,7 +6,7 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 17:39:43 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/04/09 06:56:55 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/04/18 02:30:23 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ static void print_name(t_lsent *ent, long flags)
 //(to get variable-width padding to format everything properly)
 //(AND store maxlen for every param in dir) (maybe a maxlen struct??)
 //"ent" for convenience
+//print_name does colours/file symbols
 static void	lprint(t_lsdir *dir, long flags)
 {
 	t_list			*run;
@@ -91,8 +92,6 @@ static void	lprint(t_lsdir *dir, long flags)
 				ent->ftype, ent->perms, ent->stats->st_nlink, \
 				uid->pw_name, gid->gr_name, ent->stats->st_size);
 		print_time(ent->stats->st_mtimespec.tv_sec, flags);
-		//instead pass to "print name" which will do colours/file symbols?
-		//ft_printf(" %s\n", ent->name);
 		print_name(ent, flags);
 		run = run->next;
 	}
@@ -101,6 +100,7 @@ static void	lprint(t_lsdir *dir, long flags)
 void		ls_print(t_lsdir *dir, long flags)
 {
 	t_list	*run;
+	t_lsent	*ent;
 
 	if (flags & LS_LL)
 		lprint(dir, flags);
@@ -109,10 +109,10 @@ void		ls_print(t_lsdir *dir, long flags)
 		run = dir->entries;
 		while (run)
 		{
-			//can do all sorts of flag stuff here, including
-			//(a) pass to longprint
-			//(b) color print
-			ft_printf("%s\n", ((t_lsent*)(run->content))->name);
+			ent = run->content;
+			if (ent->name[0] == '.' && !(flags & LS_LA) && (run = run->next))
+				continue ;
+			print_name(ent, flags);
 			run = run->next;
 		}
 	}
