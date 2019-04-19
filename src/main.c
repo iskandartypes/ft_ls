@@ -6,7 +6,7 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 07:36:43 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/04/18 17:15:09 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/04/19 03:49:47 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,9 @@ int		main(int ac, char **av)
 
 	flags = 0;
 	num_dirs = 0;
+	//maybe use count here to print files that aren't dirs, then 
+	//just skip them later on?
+	//also, they're sorted alphabetically, because of course they are
 	while (ac > 1 && av[--ac][0] != '-')
 		num_dirs++;
 	if (num_dirs > 1)

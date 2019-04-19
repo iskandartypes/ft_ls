@@ -6,7 +6,7 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/29 16:47:22 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/04/18 17:08:18 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/04/19 03:50:11 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ t_lsdir		*ls_mkdir(char *name, long flags, char *parent)
 		ft_asprintf(&(dir->path), "%s", name);
 	dir->dir = opendir(dir->path);
 	dir->entries = NULL;
+	if (!dir->dir)
+		return (dir);//is this a good idea?
 	make_entries(dir, flags);
 	sort_ents(&(dir->entries), flags);
 	return (dir);
@@ -87,4 +89,5 @@ void		ls_rmdir(t_lsdir *dir)
 	free(dir->path);
 	closedir(dir->dir);
 	free(dir);
+	dir = NULL;
 }

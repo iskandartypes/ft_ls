@@ -6,7 +6,7 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 17:39:43 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/04/18 17:40:11 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/04/19 03:25:04 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,8 @@ void		ls_print(t_lsdir *dir, long flags)
 	t_list	*run;
 	t_lsent	*ent;
 
+	if (!dir)
+		return ;
 	if (flags & (LS_UR | LS_MU))
 		ft_printf("%s:\n", dir->path);
 	if (flags & (LS_LL | LS_LS))
