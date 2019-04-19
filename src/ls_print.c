@@ -6,30 +6,11 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 17:39:43 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/04/18 17:03:47 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/04/18 17:40:11 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
-
-/*
-** all of these things happen whether or not -l is given
-** returns 1 if file is to be hidden from ls, 0 if otherwise
-** prints inode and block sizes if flags given and file not hidden
-*/
-
-static int	inode_block_skip(t_lsent *ent, long flags)
-{
-
-	if ((flags & LS_UA) && (ft_strcmp(ent->name, ".") == 0 || \
-				ft_strcmp(ent->name, "..") == 0))
-		return (1);
-	if (ent->name[0] == '.' && !(flags & (LS_LA | LS_UA)))
-		return (1);
-	flags & LS_LI ? ft_printf("%9d ", ent->stats->st_ino) : 0;
-	flags & LS_LS ? ft_printf("%4d ", ent->stats->st_blocks) : 0;
-	return (0);
-}
 
 /*
 ** that number is 6 mo in seconds
@@ -83,6 +64,20 @@ static void print_name(t_lsent *ent, long flags)
 	ft_putchar('\n');
 }
 
+static void	print_uid_gid(t_lsent *ent, long fl)
+{
+	struct passwd	*uid;
+	struct group	*gid;
+
+	uid = getpwuid(ent->stats->st_uid);
+	gid = getgrgid(ent->stats->st_gid);
+	if (!(fl & LS_LG))
+		fl & LS_LN ? ft_printf(" %d ", uid->pw_uid) : \
+			ft_printf(" %s ", uid->pw_name);
+	fl & LS_LN ? ft_printf(" %d ", gid->gr_gid) : \
+		ft_printf(" %s ", gid->gr_name);
+}
+
 /*
 ** padding is one space before and after maxlen of every param
 ** requires storing of maximum length; can cheat though
@@ -95,22 +90,19 @@ static void	lprint(t_lsdir *dir, long flags)
 {
 	t_list			*run;
 	t_lsent			*ent;
-	struct passwd	*uid;
-	struct group	*gid;
 
 	run = dir->entries;
 	while (run)
 	{
 		ent = run->content;
-		if (inode_block_skip(ent, flags) && (run = run->next))
+		if (ls_inode_block_skip(ent, flags) && (run = run->next))
 			continue ;
 		if (!run)
 			break ;
-		uid = getpwuid(ent->stats->st_uid);
-		gid = getgrgid(ent->stats->st_gid);
-		ft_printf("%c%s  %2d %s  %s %6ld ", \
-				ent->ftype, ent->perms, ent->stats->st_nlink, \
-				uid->pw_name, gid->gr_name, ent->stats->st_size);
+		ft_printf("%c%s  %2d", \
+				ent->ftype, ent->perms, ent->stats->st_nlink);
+		print_uid_gid(ent, flags);
+		ft_printf("%6ld ", ent->stats->st_size);
 		flags & LS_LU ? print_time(ent->stats->st_atimespec.tv_sec, flags) :\
 			print_time(ent->stats->st_mtimespec.tv_sec, flags);
 		print_name(ent, flags);
@@ -135,7 +127,7 @@ void		ls_print(t_lsdir *dir, long flags)
 		while (run)
 		{
 			ent = run->content;
-			if (inode_block_skip(ent, flags) && (run = run->next))
+			if (ls_inode_block_skip(ent, flags) && (run = run->next))
 				continue ;
 			if (!run)
 				break ;

@@ -6,7 +6,7 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 15:58:38 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/04/18 02:34:25 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/04/18 17:27:49 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,14 +92,20 @@ void	ls_get_perms(t_lsent *entry)
 			mode & S_IWOTH ? 'w' : '-', ox);
 }
 
-void	ls_print_long(struct dirent *entry, char *path, int f)
+/*
+** all of these things happen whether or not -l is given
+** returns 1 if file is to be hidden from ls, 0 if otherwise
+** prints inode and block sizes if flags given and file not hidden
+*/
+
+int		ls_inode_block_skip(t_lsent *ent, long flags)
 {
-	char		*full;
-	struct stat	stats;
-
-//	ft_asprintf(&full, "%s/%s", path, entry->d_name);
-//	stat(full, &stats);
-//	print_ftype(stats.st_mode, 1);
-//	print_perm(stats.st_mode);
-
+	if ((flags & LS_UA) && (ft_strcmp(ent->name, ".") == 0 || \
+				ft_strcmp(ent->name, "..") == 0))
+		return (1);
+	if (ent->name[0] == '.' && !(flags & (LS_LA | LS_UA)))
+		return (1);
+	flags & LS_LI ? ft_printf("%9d ", ent->stats->st_ino) : 0;
+	flags & LS_LS ? ft_printf("%4d ", ent->stats->st_blocks) : 0;
+	return (0);
 }

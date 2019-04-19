@@ -6,7 +6,7 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 07:22:45 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/04/18 17:12:36 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/04/18 17:43:37 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,10 @@
 # define LS_UT 0x00020	//req -l, display complete time info ie Mar 26 20:01:18 2019 DONE
 # define LS_LA 0x00040	//REQ list all w/ . DONE
 # define LS_LF 0x00080	//output not sorted, and -a DONE
-# define LS_LG 0x00100	//no username in -l
+# define LS_LG 0x00100	//no username in -l (turns on -l) DONE
 # define LS_LI 0x00200	//print inode # (doesn't need -l!) DONE
 # define LS_LL 0x00400	//REQ long format DONE
-# define LS_LN 0x00800	//disp uid and gid as #; turn on -l
+# define LS_LN 0x00800	//disp uid and gid as #; turn on -l DONE
 # define LS_LP 0x01000	// '/' after directories, similar to F but less intense DONE
 # define LS_LR 0x02000	//REQ reverse sort order (rev alpha, oldest first, largest last)
 # define LS_LS 0x04000	//output blocksize (lists total like -l, doesn't need -l) DONE
@@ -83,11 +83,14 @@ typedef struct	s_lsent
 
 typedef int		(*ls_comp)(t_list*, t_list*);
 
-void			ls_set_color(t_lsent *ent);
-void			ls_print_long(struct dirent *entry, char *path, int f);
+/*
+** utils handy for -l and not
+*/
 
+void			ls_set_color(t_lsent *ent);
 void			ls_get_ftype(t_lsent *entry);
 void			ls_get_perms(t_lsent *perms);
+int				ls_inode_block_skip(t_lsent *ent, long flags);
 
 t_lsdir			*ls_mkdir(char *name, long flags, char *parent);
 void			ls_print(t_lsdir *dir, long flags);
