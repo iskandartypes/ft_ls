@@ -6,7 +6,7 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/29 16:47:22 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/04/18 04:29:58 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/04/18 17:08:18 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,10 @@ static void	sort_ents(t_list **ents, long fl)
 	ft_lstmsort(ents, fl & LS_LR ? &ls_revalpha : &ls_alphacomp);
 	if (fl & LS_US)
 		ft_lstmsort(ents, fl & LS_LR ? &ls_revsize : &ls_sizecomp);
+	else if (fl & (LS_LT | LS_LU))
+		ft_lstmsort(ents, fl & LS_LR ? &ls_revacctime : &ls_acctimecomp);
 	else if (fl & LS_LT)
 		ft_lstmsort(ents, fl & LS_LR ? &ls_revmodtime : &ls_modtimecomp);
-	else if (fl & LS_LU)
-		ft_lstmsort(ents, fl & LS_LR ? &ls_revacctime : &ls_acctimecomp);
 }
 
 t_lsdir		*ls_mkdir(char *name, long flags, char *parent)

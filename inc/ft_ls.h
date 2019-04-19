@@ -6,7 +6,7 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 07:22:45 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/04/09 06:47:07 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/04/18 17:12:36 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,24 +31,24 @@
 ** flags: L/U = lower/upper, followed by letter
 ** instead of overriding by order given, maybe override by cascade for ease?
 */
-# define LS_UA 0x00001	//list all except . & ..
-# define LS_UF 0x00002	//dir/ , exec*, socket=, whiteout% (ignore?), fifo|
-# define LS_UG 0x00004	//colours!
+# define LS_UA 0x00001	//list all except . & .. DONE
+# define LS_UF 0x00002	//dir/ , exec*, socket=, whiteout% (ignore?), fifo| DONE
+# define LS_UG 0x00004	//colours! DONE
 # define LS_UR 0x00008	//REQ recur on subdirs
-# define LS_US 0x00010	//sort by size
-# define LS_UT 0x00020	//req -l, display complete time info ie Mar 26 20:01:18 2019
-# define LS_LA 0x00040	//REQ list all w/ .
-# define LS_LF 0x00080	//output not sorted, and -a
+# define LS_US 0x00010	//sort by size DONE
+# define LS_UT 0x00020	//req -l, display complete time info ie Mar 26 20:01:18 2019 DONE
+# define LS_LA 0x00040	//REQ list all w/ . DONE
+# define LS_LF 0x00080	//output not sorted, and -a DONE
 # define LS_LG 0x00100	//no username in -l
-# define LS_LI 0x00200	//print inode # (doesn't need -l!)
-# define LS_LL 0x00400	//REQ long format
+# define LS_LI 0x00200	//print inode # (doesn't need -l!) DONE
+# define LS_LL 0x00400	//REQ long format DONE
 # define LS_LN 0x00800	//disp uid and gid as #; turn on -l
-# define LS_LP 0x01000	// '/' after directories, similar to F but less intense
+# define LS_LP 0x01000	// '/' after directories, similar to F but less intense DONE
 # define LS_LR 0x02000	//REQ reverse sort order (rev alpha, oldest first, largest last)
-# define LS_LS 0x04000	//output blocksize (lists total like -l, doesn't need -l)
-# define LS_LT 0x08000	//REQ sort by mod time (most recent first) and then name
-# define LS_LU 0x10000	//time of last access instead of last mod for -t sort and -l
-# define LS_MU 0x20000	//multiple args (needs header)
+# define LS_LS 0x04000	//output blocksize (lists total like -l, doesn't need -l) DONE
+# define LS_LT 0x08000	//REQ sort by mod time (most recent first) and then name DONE
+# define LS_LU 0x10000	//time of last access instead of last mod for -t sort and -l DONE
+# define LS_MU 0x20000	//multiple args (needs header for each) DONE
 
 /*
 ** tot: size in b / 512 (rounded up) (given by st_mode no worries)

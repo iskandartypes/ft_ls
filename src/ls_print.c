@@ -6,7 +6,7 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 17:39:43 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/04/18 07:18:02 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/04/18 17:03:47 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,12 +104,15 @@ static void	lprint(t_lsdir *dir, long flags)
 		ent = run->content;
 		if (inode_block_skip(ent, flags) && (run = run->next))
 			continue ;
+		if (!run)
+			break ;
 		uid = getpwuid(ent->stats->st_uid);
 		gid = getgrgid(ent->stats->st_gid);
 		ft_printf("%c%s  %2d %s  %s %6ld ", \
 				ent->ftype, ent->perms, ent->stats->st_nlink, \
 				uid->pw_name, gid->gr_name, ent->stats->st_size);
-		print_time(ent->stats->st_mtimespec.tv_sec, flags);
+		flags & LS_LU ? print_time(ent->stats->st_atimespec.tv_sec, flags) :\
+			print_time(ent->stats->st_mtimespec.tv_sec, flags);
 		print_name(ent, flags);
 		run = run->next;
 	}
@@ -134,6 +137,8 @@ void		ls_print(t_lsdir *dir, long flags)
 			ent = run->content;
 			if (inode_block_skip(ent, flags) && (run = run->next))
 				continue ;
+			if (!run)
+				break ;
 			print_name(ent, flags);
 			run = run->next;
 		}
