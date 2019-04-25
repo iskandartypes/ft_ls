@@ -6,11 +6,20 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/29 13:40:11 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/04/18 17:11:39 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/04/25 02:10:41 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
+
+/*
+** alphacomp for fname and dname t_lists
+*/
+
+int		ls_basic_alphacomp(t_list *n1, t_list *n2)
+{
+	return (ft_strcmp((char*)n1->content, (char*)n2->content));
+}
 
 int		ls_alphacomp(t_list *n1, t_list *n2)
 {

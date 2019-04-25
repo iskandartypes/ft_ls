@@ -6,7 +6,7 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 07:22:45 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/04/18 17:43:37 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/04/25 10:30:03 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,9 @@
 # include <time.h> //time, ctime
 # include <sys/stat.h> //stat, lstat
 # include <unistd.h> //readlink
-# include <stdio.h> //perror, strerror
+# include <stdio.h> //perror
+# include <string.h> //strerror
+# include <errno.h>
 
 /*
 ** flags: L/U = lower/upper, followed by letter
@@ -95,6 +97,9 @@ int				ls_inode_block_skip(t_lsent *ent, long flags);
 t_lsdir			*ls_mkdir(char *name, long flags, char *parent);
 void			ls_print(t_lsdir *dir, long flags);
 void			ls_rmdir(t_lsdir *dir);
+
+void			ls_get_names(char **av, long fl);
+int				ls_basic_alphacomp(t_list *n1, t_list *n2);
 
 int				ls_alphacomp(t_list *n1, t_list *n2);
 int				ls_revalpha(t_list *n1, t_list *n2);

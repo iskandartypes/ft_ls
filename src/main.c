@@ -6,7 +6,7 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 07:36:43 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/04/19 03:49:47 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/04/25 10:29:38 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,40 +40,21 @@ char	**ls_parse_flags(char **av, long *flags)
 	return (av);
 }
 
-/*
-** that funny num_dirs conditional in the while is putting
-** newlines between multiple directories;
-** it's a "don't put a newline before the first entry" check
-*/
-
 int		main(int ac, char **av)
 {
-	t_lsdir			*dir;
 	long			flags;
-	int				num_dirs;
+	int				num_args;
 
 	flags = 0;
-	num_dirs = 0;
-	//maybe use count here to print files that aren't dirs, then 
-	//just skip them later on?
-	//also, they're sorted alphabetically, because of course they are
+	num_args = 0;
 	while (ac > 1 && av[--ac][0] != '-')
-		num_dirs++;
-	if (num_dirs > 1)
+		num_args++;
+	if (num_args > 1)
 		flags |= LS_MU;
 	av = ls_parse_flags(av + 1, &flags);
 	if (flags == -1)
 		return (ft_printf("ft_ls: illegal option -- %c\nusage: ft_ls "
 					"[-AFGRSTafgilnprstu] [file ...]\n", av[0][0]));
-	dir = ls_mkdir(*av ? *av++ : ".", flags, 0);
-	ls_print(dir, flags);
-	ls_rmdir(dir);
-	while (*av)
-	{
-		ft_putchar('\n');
-		dir = ls_mkdir(*av++, flags, 0);
-		ls_print(dir, flags);
-		ls_rmdir(dir);
-	}
+	ls_get_names(av, flags);
 	return (0);
 }
