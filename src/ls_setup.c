@@ -6,7 +6,7 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 22:16:35 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/04/26 02:19:55 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/04/26 04:13:37 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,9 @@ static void	print_dnames(t_list *dnames, long flags)
 
 	if (!dnames)
 	{
-		dir = ls_mkdir(".", flags, 0);
+		dir = ls_mkdir(".", flags);
 		ls_print(dir, flags);
+		ls_print_q(dir, flags);
 		ls_rmdir(dir);
 	}
 	first = 1;
@@ -64,8 +65,9 @@ static void	print_dnames(t_list *dnames, long flags)
 		tmp = dnames;
 		dnames = dnames->next;
 		first ? first = 0 : ft_putchar('\n');
-		dir = ls_mkdir((char*)tmp->content, flags, 0);
+		dir = ls_mkdir((char*)tmp->content, flags);
 		ls_print(dir, flags);
+		ls_print_q(dir, flags);
 		ls_rmdir(dir);
 		free(tmp);
 	}

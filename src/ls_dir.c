@@ -6,7 +6,7 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/29 16:47:22 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/04/26 02:14:24 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/04/26 03:52:47 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,19 +51,21 @@ static void	sort_ents(t_list **ents, long fl)
 		ft_lstmsort(ents, fl & LS_LR ? &ls_revmodtime : &ls_modtimecomp);
 }
 
-t_lsdir		*ls_mkdir(char *name, long flags, char *parent)
+t_lsdir		*ls_mkdir(char *name, long flags/*, char *parent*/)
 {
 	t_lsdir	*dir;
 
 	dir = ft_memalloc(sizeof(*dir));
-	parent ? ft_asprintf(&(dir->path), "%s/%s", parent, name) : \
+//	parent ? ft_asprintf(&(dir->path), "%s/%s", parent, name) : \
 		ft_asprintf(&(dir->path), "%s", name);
+	ft_asprintf(&(dir->path), "%s", name);
 	dir->dir = opendir(dir->path);
 	dir->entries = NULL;
 	if (!dir->dir)
 		return (dir);//is this a good idea?
 	make_entries(dir, flags);
 	sort_ents(&(dir->entries), flags);
+	flags & LS_UR ? ls_queue_dirs(dir, flags) : 0;
 	return (dir);
 }
 
@@ -76,12 +78,10 @@ static void	rmentries(t_list *entries)
 		return ;
 	run = entries->next;
 	entry = entries->content;
-	//free(entry->name); ??
 	free(entry->full_name);
 	free(entry->stats);
 	free(entry->perms);
 	free(entries);
-	//free(entry->owner);
 	if (run)
 		rmentries(run);
 }
@@ -91,6 +91,7 @@ void		ls_rmdir(t_lsdir *dir)
 	rmentries(dir->entries);
 	free(dir->path);
 	closedir(dir->dir);
+	free(dir->nested);
 	free(dir);
 	dir = NULL;
 }

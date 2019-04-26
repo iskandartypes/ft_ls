@@ -6,7 +6,7 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 07:22:45 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/04/26 01:46:02 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/04/26 03:49:19 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,15 +53,17 @@
 # define LS_MU 0x20000	//multiple args (needs header for each) DONE
 
 /*
-** tot: size in b / 512 (rounded up) (given by st_mode no worries)
+** tot: size in b / 512 (rounded up) (given by st_blocks no worries)
+** there's a queue of dirs for -R
 */
-//these will be enqueued
+
 typedef struct	s_lsdir
 {
 	int			tot;
 	char		*path;
 	DIR			*dir;
 	t_list		*entries;
+	t_queue		*nested;
 }				t_lsdir;
 
 //there'll be a ll of these suckers right here, sorted according to flags
@@ -92,9 +94,12 @@ void			ls_get_ftype(t_lsent *entry);
 void			ls_get_perms(t_lsent *perms);
 int				ls_inode_block_skip(t_lsent *ent, long flags);
 
-t_lsdir			*ls_mkdir(char *name, long flags, char *parent);
+t_lsdir			*ls_mkdir(char *name, long flags);
 void			ls_print(t_lsdir *dir, long flags);
 void			ls_rmdir(t_lsdir *dir);
+
+void			ls_queue_dirs(t_lsdir *dir, long fl);
+void			ls_print_q(t_lsdir *dir, long fl);
 
 void			ls_get_names(char **av, long fl);
 int				ls_basic_alphacomp(t_list *n1, t_list *n2);
