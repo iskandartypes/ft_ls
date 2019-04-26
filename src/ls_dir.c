@@ -6,7 +6,7 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/29 16:47:22 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/04/19 03:50:11 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/04/26 00:53:56 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ static void	make_entries(t_lsdir *dir, long flags)
 		stat(ls_entry->full_name, ls_entry->stats);
 		ls_get_ftype(ls_entry);
 		ls_get_perms(ls_entry);
-		dir->tot += entry->d_name[0] != '.' || flags & LS_LA ? \
+		dir->tot += entry->d_name[0] != '.' || flags & (LS_LA | LS_UA) ? \
+					ls_entry->stats->st_blocks : 0;
+		dir->tot -= flags & LS_UA && (!(ft_strcmp(entry->d_name, ".")) || \
+					!(ft_strcmp(entry->d_name, ".."))) ? \
 					ls_entry->stats->st_blocks : 0;
 		ft_lstaddend(&(dir->entries), ft_lstnew(ls_entry, sizeof(*ls_entry)));
 	}
