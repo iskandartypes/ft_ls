@@ -6,7 +6,7 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 17:39:43 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/04/26 01:49:04 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/04/26 02:32:57 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	print_time(time_t sec, long flags)
 	}
 }
 
-static void print_name(t_lsent *ent, long flags)
+static void	print_name(t_lsent *ent, long flags)
 {
 	ssize_t	slen;
 

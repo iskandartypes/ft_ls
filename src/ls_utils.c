@@ -6,7 +6,7 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 15:58:38 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/04/26 01:31:33 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/04/26 02:26:51 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ void	ls_set_color(t_lsent *ent)
 	if (ent->ftype == 'd')
 		ft_printf("%{blue}");
 	else if (ft_charat(ent->perms, 'x') > -1)
-	   	ft_printf("%{red}");
+		ft_printf("%{red}");
 	if (ent->ftype == 'p')
-	   	ft_printf("%{yellow}");
+		ft_printf("%{yellow}");
 	else if (ent->ftype == 'l')
 		ft_printf("%{magenta}");
 	else if (ent->ftype == 's')
@@ -47,7 +47,7 @@ void	ls_set_color(t_lsent *ent)
 void	ls_get_ftype(t_lsent *entry)
 {
 	mode_t	mode;
-	
+
 	mode = entry->stats->st_mode;
 	if (S_ISREG(mode))
 		entry->ftype = '-';
@@ -82,10 +82,10 @@ void	ls_get_perms(t_lsent *entry)
 	ox = mode & S_IXOTH ? 'x' : '-';
 	if (mode & S_ISVTX)
 		ox = ox == 'x' ? 't' : 'T';
-	ft_asprintf(&(entry->perms), "%c%c%c%c%c%c%c%c%c", mode & S_IRUSR ? 'r' : '-'\
-			, mode & S_IWUSR ? 'w' : '-', ux, mode & S_IRGRP ? 'r' : '-', \
-			mode & S_IWGRP ? 'w' : '-', gx, mode & S_IROTH ? 'r' : '-', \
-			mode & S_IWOTH ? 'w' : '-', ox);
+	ft_asprintf(&(entry->perms), "%c%c%c%c%c%c%c%c%c", mode & S_IRUSR ? \
+			'r' : '-', mode & S_IWUSR ? 'w' : '-', ux, mode & S_IRGRP ? \
+			'r' : '-', mode & S_IWGRP ? 'w' : '-', gx, mode & S_IROTH ? \
+			'r' : '-', mode & S_IWOTH ? 'w' : '-', ox);
 }
 
 /*

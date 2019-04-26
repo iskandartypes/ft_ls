@@ -6,7 +6,7 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 22:16:35 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/04/25 10:28:58 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/04/26 02:19:55 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,10 +108,8 @@ void		ls_get_names(char **av, long fl)
 		if (stat(*av, stats) == -1)
 			ft_lstadd(notnames, ft_lstnew(*av, ft_strlen(*av) + 1));
 		else
-			if (S_ISDIR(stats->st_mode))
-				ft_lstadd(dnames, ft_lstnew(*av, ft_strlen(*av) + 1));
-			else
-				ft_lstadd(fnames, ft_lstnew(*av, ft_strlen(*av) + 1));
+			ft_lstadd(S_ISDIR(stats->st_mode) ? dnames : fnames, \
+				ft_lstnew(*av, ft_strlen(*av) + 1));
 		av++;
 	}
 	name_sort_print(notnames, fnames, dnames, fl);

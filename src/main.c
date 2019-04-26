@@ -6,7 +6,7 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 07:36:43 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/04/26 00:49:10 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/04/26 02:32:22 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	**ls_parse_flags(char **av, long *flags)
 {
 	int i;
 
-	while ( *av && (*av)[0] == '-' && (*av)[1])
+	while (*av && (*av)[0] == '-' && (*av)[1])
 	{
 		(*av)++;
 		while (**av)
@@ -41,6 +41,11 @@ char	**ls_parse_flags(char **av, long *flags)
 	return (av);
 }
 
+/*
+** I don't know why norminette wants the ls_get_names indented like that,
+** but it does and I am not going to argue for right now
+*/
+
 int		main(int ac, char **av)
 {
 	long			flags;
@@ -55,7 +60,7 @@ int		main(int ac, char **av)
 	av = ls_parse_flags(av + 1, &flags);
 	if (flags == -1)
 		return (ft_printf("ft_ls: illegal option -- %c\nusage: ft_ls "
-					"[-AFGRSTafgilnprstu] [file ...]\n", av[0][0]));
-	ls_get_names(av, flags);
+			"[-AFGRSTafgilnprstu] [file ...]\n", av[0][0]));
+		ls_get_names(av, flags);
 	return (0);
 }
