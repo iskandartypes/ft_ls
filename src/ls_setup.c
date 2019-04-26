@@ -6,7 +6,7 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 22:16:35 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/04/26 04:13:37 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/04/26 05:32:09 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ static void	print_notnames(t_list *notnames)
 {
 	t_list	*tmp;
 
-	if (!notnames)
-		return ;
 	while (notnames)
 	{
 		tmp = notnames;
@@ -35,8 +33,6 @@ static void	print_fnames(t_list *fnames)
 {
 	t_list	*tmp;
 
-	if (!fnames)
-		return ;
 	while (fnames)
 	{
 		tmp = fnames;

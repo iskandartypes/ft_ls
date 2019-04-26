@@ -6,7 +6,7 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 07:22:45 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/04/26 03:49:19 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/04/26 05:44:08 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ typedef struct	s_lsdir
 	DIR			*dir;
 	t_list		*entries;
 	t_queue		*nested;
+	int			r_notfirst;
 }				t_lsdir;
 
 //there'll be a ll of these suckers right here, sorted according to flags

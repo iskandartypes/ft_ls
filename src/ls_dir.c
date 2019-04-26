@@ -6,7 +6,7 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/29 16:47:22 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/04/26 03:52:47 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/04/26 05:28:06 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,11 @@ static void	sort_ents(t_list **ents, long fl)
 		ft_lstmsort(ents, fl & LS_LR ? &ls_revmodtime : &ls_modtimecomp);
 }
 
-t_lsdir		*ls_mkdir(char *name, long flags/*, char *parent*/)
+t_lsdir		*ls_mkdir(char *name, long flags)
 {
 	t_lsdir	*dir;
 
 	dir = ft_memalloc(sizeof(*dir));
-//	parent ? ft_asprintf(&(dir->path), "%s/%s", parent, name) : \
-		ft_asprintf(&(dir->path), "%s", name);
 	ft_asprintf(&(dir->path), "%s", name);
 	dir->dir = opendir(dir->path);
 	dir->entries = NULL;

@@ -6,7 +6,7 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 03:13:57 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/04/26 04:13:06 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/04/26 05:51:29 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	ls_queue_dirs(t_lsdir *dir, long fl)
 				(ent->name[0] != '.' || fl & (LS_LA | LS_UA)))
 		{
 			ft_enqueue(dir->nested, ls_mkdir(ent->full_name, fl));
-	//		ft_printf("%{red}enqueued: %s\n%{}", ent->full_name);
+			((t_lsdir*)(dir->nested->last->content))->r_notfirst = 1;
 		}
 		run = run->next;
 	}
@@ -43,7 +43,6 @@ void	ls_print_q(t_lsdir *dir, long fl)
 	{
 		ft_putchar('\n');
 		child = ft_dequeue(dir->nested);
-	//	ft_printf("%{green}dequeued: %s\n%{}", child->path);
 		ls_print(child, fl);
 		ls_print_q(child, fl);
 		ls_rmdir(child);
