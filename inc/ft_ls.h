@@ -6,7 +6,7 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 07:22:45 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/04/25 10:30:03 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/04/26 01:46:02 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,18 +69,16 @@ typedef struct	s_lsdir
 //need delete func? like to free all the shit inside
 //saving d_name to avoid having to save dirent struct
 //(other info in dirent duped in stats)
+# define SYMBUF 1024
+
 typedef struct	s_lsent
 {
 	char		*name;
 	char		*full_name;
 	struct stat	*stats; //v. important, basically inherits from
 	char		ftype;	//in handy printable fmt
-	char		exec;	//is it executable?
 	char		*perms;
-	char		*owner; //getpwuid(uid) (might not need var)
-	char		*group; //getgrgid(gid) (might not need var)
-	int			sixmo_flag;
-
+	char		symbuf[SYMBUF];
 }				t_lsent;
 
 typedef int		(*ls_comp)(t_list*, t_list*);

@@ -6,7 +6,7 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/29 16:47:22 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/04/26 00:53:56 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/04/26 01:17:06 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	make_entries(t_lsdir *dir, long flags)
 		ls_entry->name = entry->d_name;
 		ft_asprintf(&(ls_entry->full_name), "%s/%s", dir->path, entry->d_name);
 		ls_entry->stats = malloc(sizeof(*ls_entry->stats));
-		stat(ls_entry->full_name, ls_entry->stats);
+		lstat(ls_entry->full_name, ls_entry->stats);
 		ls_get_ftype(ls_entry);
 		ls_get_perms(ls_entry);
 		dir->tot += entry->d_name[0] != '.' || flags & (LS_LA | LS_UA) ? \

@@ -6,7 +6,7 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 17:39:43 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/04/19 03:25:04 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/04/26 01:49:04 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ static void	print_time(time_t sec, long flags)
 
 static void print_name(t_lsent *ent, long flags)
 {
+	ssize_t	slen;
+
 	if (flags & (LS_LL | LS_LS | LS_LI))
 		ft_putchar(' ');
 	if (flags & LS_UG)
@@ -58,8 +60,15 @@ static void print_name(t_lsent *ent, long flags)
 		ent->ftype == '-' && ft_charat(ent->perms, 'x') > -1 ? \
 					ft_putchar('*') : 0;
 		ent->ftype == 'd' ? ft_putchar('/') : 0;
+		ent->ftype == 'l' ? ft_putchar('@') : 0;
 		ent->ftype == 's' ? ft_putchar('=') : 0;
 		ent->ftype == 'p' ? ft_putchar('|') : 0;
+	}
+	if (ent->ftype == 'l')
+	{
+		slen = readlink(ent->full_name, ent->symbuf, sizeof(ent->symbuf) - 1);
+		ent->symbuf[slen == -1 ? 0 : slen] = '\0';
+		ft_printf(" -> %s", ent->symbuf);
 	}
 	ft_putchar('\n');
 }

@@ -6,7 +6,7 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 15:58:38 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/04/18 17:27:49 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/04/26 01:31:33 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,7 @@ void	ls_get_ftype(t_lsent *entry)
 	
 	mode = entry->stats->st_mode;
 	if (S_ISREG(mode))
-	{
 		entry->ftype = '-';
-		if (mode & (S_IXUSR | S_IXGRP | S_IXOTH))
-			entry->exec = '*';
-	}
 	else if (S_ISDIR(mode))
 		entry->ftype = 'd';
 	else if (S_ISLNK(mode))
