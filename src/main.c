@@ -6,7 +6,7 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 07:36:43 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/04/26 22:09:44 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/04/27 01:13:15 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,13 @@ char	**ls_parse_flags(char **av, long *flags)
 			break ;
 		av++;
 	}
-	*flags |= (*flags & LS_LF) ? LS_LA : 0;
-	*flags &= (*flags & LS_UA) && (*flags & LS_LA) ? ~LS_UA : ~0l;
-	*flags |= (*flags & (LS_LN | LS_LG)) ? LS_LL : 0;
+	if (*flags != -1)
+	{
+		*flags |= (*flags & LS_LF) ? LS_LA : 0;
+		*flags |= (*flags & (LS_LN | LS_LG)) ? LS_LL : 0;
+		if ((*flags & LS_UA) && (*flags & LS_LA))
+			*flags &= ~LS_UA;
+	}
 	return (av);
 }
 
