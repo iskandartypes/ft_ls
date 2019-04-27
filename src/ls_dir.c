@@ -6,7 +6,7 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/29 16:47:22 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/04/26 21:41:23 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/04/26 21:56:31 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void		ls_rmentries(t_list *entries)
 	free(entry->full_name);
 	free(entry->stats);
 	free(entry->perms);
+	free(entry);
 	free(entries);
 	if (run)
 		ls_rmentries(run);

@@ -6,7 +6,7 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 17:39:43 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/04/26 21:34:33 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/04/26 22:07:11 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void		ls_print_name(t_lsent *ent, long flags)
 	{
 		slen = readlink(ent->full_name, ent->symbuf, sizeof(ent->symbuf) - 1);
 		ent->symbuf[slen == -1 ? 0 : slen] = '\0';
-		ft_printf(" -> %s", ent->symbuf);
+		flags & LS_LL ? ft_printf(" -> %s", ent->symbuf) : 0;
 	}
 	ft_putchar('\n');
 }

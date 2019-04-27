@@ -6,7 +6,7 @@
 #    By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/26 06:59:43 by ikourkji          #+#    #+#              #
-#    Updated: 2019/04/04 16:48:56 by ikourkji         ###   ########.fr        #
+#    Updated: 2019/04/26 21:46:02 by ikourkji         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,13 +22,14 @@ FTSRC	= ./libft/src/bits/* ./libft/src/ds/* ./libft/src/is/* \
 		  ./libft/src/lst/* ./libft/src/mem/* ./libft/src/put/* \
 		  ./libft/src/str/* ./libft/ft_printf/src/*
 
-_SRC	= *.c
+_SRC	= main.c ls_comps.c ls_print.c ls_recur.c ls_utils.c ls_dir.c \
+		  ls_rcomps.c ls_setup.c
 SRC		= $(patsubst %,src/%,$(_SRC))
 
 _OBJ	= $(_SRC:.c=.o)
 OBJ		= $(patsubst %,obj/%,$(_OBJ))
 
-TEST	= -g -fsanitize=address
+TEST	= -g #-fsanitize=address
 
 GREEN	= \033[0;32m
 NC		= \033[0m
@@ -63,5 +64,4 @@ test:
 testsrc:
 	gcc $(SRC) $(INC) $(FTSRC) $(TEST) -o test_ls
 
-.PHONY: all $(NAME) clean fclean re test
-	
+.PHONY: all $(NAME) clean fclean re test testsrc
