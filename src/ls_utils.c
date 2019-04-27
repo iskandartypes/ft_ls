@@ -6,7 +6,7 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/28 15:58:38 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/04/26 02:26:51 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/04/26 21:36:51 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,4 +104,21 @@ int		ls_inode_block_skip(t_lsent *ent, long flags)
 	flags & LS_LI ? ft_printf("%9d ", ent->stats->st_ino) : 0;
 	flags & LS_LS ? ft_printf("%4d ", ent->stats->st_blocks) : 0;
 	return (0);
+}
+
+/*
+** makes t_lsents for setup, before we open dirs
+*/
+
+t_lsent	*ls_init_entry(char *path)
+{
+	t_lsent	*ent;
+
+	ent = ft_memalloc(sizeof(*ent));
+	ent->name = path;
+	ent->stats = malloc(sizeof(*ent->stats));
+	lstat(ent->name, ent->stats);
+	ls_get_ftype(ent);
+	ls_get_perms(ent);
+	return (ent);
 }

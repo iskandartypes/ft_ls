@@ -6,7 +6,7 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/02 17:39:43 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/04/26 05:44:30 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/04/26 21:34:33 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	print_time(time_t sec, long flags)
 	}
 }
 
-static void	print_name(t_lsent *ent, long flags)
+void		ls_print_name(t_lsent *ent, long flags)
 {
 	ssize_t	slen;
 
@@ -92,15 +92,13 @@ static void	print_uid_gid(t_lsent *ent, long fl)
 ** requires storing of maximum length; can cheat though
 ** ("good enough" spacing)
 ** "ent" var is for convenience (not derefing run->content 9000 times)
-** print_name does colours/file symbols if flagged
+** ls_print_name does colours/file symbols if flagged
 */
 
-static void	lprint(t_lsdir *dir, long flags)
+void		ls_lprint(t_list *run, long flags)
 {
-	t_list			*run;
 	t_lsent			*ent;
 
-	run = dir->entries;
 	while (run)
 	{
 		ent = run->content;
@@ -114,7 +112,7 @@ static void	lprint(t_lsdir *dir, long flags)
 		ft_printf("%6ld ", ent->stats->st_size);
 		flags & LS_LU ? print_time(ent->stats->st_atimespec.tv_sec, flags) :\
 			print_time(ent->stats->st_mtimespec.tv_sec, flags);
-		print_name(ent, flags);
+		ls_print_name(ent, flags);
 		run = run->next;
 	}
 }
@@ -131,7 +129,7 @@ void		ls_print(t_lsdir *dir, long flags)
 	if (flags & (LS_LL | LS_LS))
 		ft_printf("total %d\n", dir->tot);
 	if (flags & LS_LL)
-		lprint(dir, flags);
+		ls_lprint(dir->entries, flags);
 	else
 	{
 		run = dir->entries;
@@ -142,7 +140,7 @@ void		ls_print(t_lsdir *dir, long flags)
 				continue ;
 			if (!run)
 				break ;
-			print_name(ent, flags);
+			ls_print_name(ent, flags);
 			run = run->next;
 		}
 	}

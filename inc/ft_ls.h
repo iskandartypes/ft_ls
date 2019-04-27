@@ -6,7 +6,7 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/26 07:22:45 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/04/26 05:44:08 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/04/26 21:33:10 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,14 @@ void			ls_get_perms(t_lsent *perms);
 int				ls_inode_block_skip(t_lsent *ent, long flags);
 
 t_lsdir			*ls_mkdir(char *name, long flags);
+void			ls_sort_ents(t_list **ents, long fl);
 void			ls_print(t_lsdir *dir, long flags);
+void			ls_lprint(t_list *run, long flags);
+void			ls_print_name(t_lsent *ent, long flags);
+void			ls_rmentries(t_list *entries);
 void			ls_rmdir(t_lsdir *dir);
+
+t_lsent			*ls_init_entry(char *path);
 
 void			ls_queue_dirs(t_lsdir *dir, long fl);
 void			ls_print_q(t_lsdir *dir, long fl);

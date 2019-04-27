@@ -6,7 +6,7 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/29 16:47:22 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/04/26 05:28:06 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/04/26 21:02:39 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	make_entries(t_lsdir *dir, long flags)
 
 	while ((entry = readdir(dir->dir)))
 	{
-		ls_entry = malloc(sizeof(*ls_entry));
+		ls_entry = ft_memalloc(sizeof(*ls_entry));
 		ls_entry->name = entry->d_name;
 		ft_asprintf(&(ls_entry->full_name), "%s/%s", dir->path, entry->d_name);
 		ls_entry->stats = malloc(sizeof(*ls_entry->stats));
@@ -40,7 +40,7 @@ static void	make_entries(t_lsdir *dir, long flags)
 ** I would have had to pass them manually anyway, only without helpful names
 */
 
-static void	sort_ents(t_list **ents, long fl)
+void		ls_sort_ents(t_list **ents, long fl)
 {
 	ft_lstmsort(ents, fl & LS_LR ? &ls_revalpha : &ls_alphacomp);
 	if (fl & LS_US)
@@ -62,12 +62,12 @@ t_lsdir		*ls_mkdir(char *name, long flags)
 	if (!dir->dir)
 		return (dir);//is this a good idea?
 	make_entries(dir, flags);
-	sort_ents(&(dir->entries), flags);
+	ls_sort_ents(&(dir->entries), flags);
 	flags & LS_UR ? ls_queue_dirs(dir, flags) : 0;
 	return (dir);
 }
 
-static void	rmentries(t_list *entries)
+ void		ls_rmentries(t_list *entries)
 {
 	t_list	*run;
 	t_lsent	*entry;
@@ -81,12 +81,12 @@ static void	rmentries(t_list *entries)
 	free(entry->perms);
 	free(entries);
 	if (run)
-		rmentries(run);
+		ls_rmentries(run);
 }
 
 void		ls_rmdir(t_lsdir *dir)
 {
-	rmentries(dir->entries);
+	ls_rmentries(dir->entries);
 	free(dir->path);
 	closedir(dir->dir);
 	free(dir->nested);
