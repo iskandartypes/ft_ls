@@ -6,7 +6,7 @@
 /*   By: ikourkji <ikourkji@student.42.us.or>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/29 16:47:22 by ikourkji          #+#    #+#             */
-/*   Updated: 2019/04/26 21:56:31 by ikourkji         ###   ########.fr       */
+/*   Updated: 2019/04/27 00:09:26 by ikourkji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void		ls_sort_ents(t_list **ents, long fl)
 	ft_lstmsort(ents, fl & LS_LR ? &ls_revalpha : &ls_alphacomp);
 	if (fl & LS_US)
 		ft_lstmsort(ents, fl & LS_LR ? &ls_revsize : &ls_sizecomp);
-	else if (fl & (LS_LT | LS_LU))
+	else if (fl & LS_LU && fl & LS_LT)
 		ft_lstmsort(ents, fl & LS_LR ? &ls_revacctime : &ls_acctimecomp);
 	else if (fl & LS_LT)
 		ft_lstmsort(ents, fl & LS_LR ? &ls_revmodtime : &ls_modtimecomp);
